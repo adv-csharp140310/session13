@@ -2,6 +2,7 @@ using AppNLayer.DAL.Repositories;
 using AppNLayer.DAL;
 using Microsoft.EntityFrameworkCore;
 using AppNLayer.BLL.Services;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -58,6 +59,9 @@ builder.Services.AddSwaggerGen(options => {
 });
 
 
+builder.Services.AddIdentityApiEndpoints<IdentityUser>()
+    .AddEntityFrameworkStores<AppNLayerDbContext>();
+
 var app = builder.Build();
 app.UseCors(AllowAllCorsPolicy);
 
@@ -74,6 +78,7 @@ if (app.Environment.IsDevelopment())
 
 app.MapControllers();
 app.UseHttpsRedirection();
+app.MapIdentityApi<IdentityUser>();
 
 if (app.Environment.IsDevelopment())
 {

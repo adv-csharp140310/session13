@@ -1,4 +1,6 @@
 ﻿using AppNLayer.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -7,7 +9,8 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace AppNLayer.DAL;
-public class AppNLayerDbContext(DbContextOptions<AppNLayerDbContext> options) : DbContext(options)
+public class AppNLayerDbContext(DbContextOptions<AppNLayerDbContext> options) 
+    : IdentityDbContext<IdentityUser>(options)
 {
     //public AppNLayerDbContext(DbContextOptions<AppNLayerDbContext> options) : base(options)
     //{        

@@ -4,6 +4,7 @@ using AppNLayer.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AppNLayer.DAL.Migrations
 {
     [DbContext(typeof(AppNLayerDbContext))]
-    partial class AppNLayerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250421154843_IdentotyInit")]
+    partial class IdentotyInit
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
