@@ -65,3 +65,6 @@ Migration:
 
 /swagger/index.html
 
+
+
+npm create vite@latest
