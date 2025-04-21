@@ -1,33 +1,54 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useEffect, useState } from 'react'
 import './App.css'
 
 function App() {
+  //hook
   const [count, setCount] = useState(0)
+  const [data, setData] = useState<any[]>([])
 
+  //ajax?
+  useEffect(() => {
+    loadData();
+  }, []);
+
+  async function loadData() {
+    const resp = await fetch("https://localhost:7082/api/Books");
+    const data = await resp.json();
+    setData(data)
+  }
+
+  //javascript -> js -> jsx
+  //typescript -> ts -> tsx
+  //map -> Select c#
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
+          count is!!! {count}
         </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
+
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Title</th>
+              <th>Author</th>
+              <th>Publication Year</th>
+              <th>Category</th>
+            </tr>
+          </thead>
+          <tbody>
+            {data.map(b => <tr>
+              <td>{b.id}</td>
+              <td>{b.title}</td>
+              <td>{b.author}</td>
+              <td>{b.publicationYear}</td>
+              <td>{b.categoryName}</td>
+            </tr>)}
+          </tbody>
+        </table>
+
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
   )
 }
