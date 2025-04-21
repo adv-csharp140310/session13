@@ -47,3 +47,21 @@ dotnet add AppNLayer.UI.Api package Swashbuckle.AspNetCore # For Swagger
 
 # DTO Packages (For Validation Attributes)
 dotnet add AppNLayer.DTO package System.ComponentModel.DataAnnotations
+
+
+
+GenricRepository 2 = DataAccess
+
+Error Handling:
+	Syntax Error - compiler
+        Runtime Error
+        Logical Error
+
+
+Migration:
+	dotnet ef migrations add InitialApp --project AppNLayer.DAL --startup-project AppNLayer.UI.Api
+	dotnet ef database update --project AppNLayer.DAL --startup-project AppNLayer.UI.Api
+
+
+/swagger/index.html
+

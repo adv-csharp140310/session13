@@ -66,7 +66,7 @@ public class CategoryService : ICategoryService
             return false;
         }
 
-        existingCategory = updateDto.MapFromUpdateDto;
+        existingCategory = updateDto.MapFromUpdateDto();
 
         _dataAccess.Update(existingCategory);
         await _dataAccess.SaveChangesAsync(cancellationToken);
