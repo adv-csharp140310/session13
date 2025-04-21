@@ -1,0 +1,49 @@
+Visual Studio - new project ...
+
+.Net Cli - 
+	dotnet ef database update 
+
+
+
+# Create the solution file
+dotnet new sln -n AppNLayer
+
+# Create Projects (adjust target framework if necessary, e.g., net9.0)
+dotnet new classlib -n AppNLayer.Entities -o AppNLayer.Entities --framework net9.0
+dotnet new classlib -n AppNLayer.DTO -o AppNLayer.DTO --framework net9.0
+dotnet new classlib -n AppNLayer.DAL -o AppNLayer.DAL --framework net9.0
+dotnet new classlib -n AppNLayer.BLL -o AppNLayer.BLL --framework net9.0
+dotnet new webapi -n AppNLayer.UI.Api -o AppNLayer.UI.Api --framework net9.0
+
+# Add projects to the solution
+dotnet sln AppNLayer.sln add AppNLayer.Entities/AppNLayer.Entities.csproj
+dotnet sln AppNLayer.sln add AppNLayer.DTO/AppNLayer.DTO.csproj
+dotnet sln AppNLayer.sln add AppNLayer.DAL/AppNLayer.DAL.csproj
+dotnet sln AppNLayer.sln add AppNLayer.BLL/AppNLayer.BLL.csproj
+dotnet sln AppNLayer.sln add AppNLayer.UI.Api/AppNLayer.UI.Api.csproj
+
+# Setup Project References
+dotnet add AppNLayer.DAL reference AppNLayer.Entities/AppNLayer.Entities.csproj
+dotnet add AppNLayer.BLL reference AppNLayer.DAL/AppNLayer.DAL.csproj
+dotnet add AppNLayer.BLL reference AppNLayer.DTO/AppNLayer.DTO.csproj
+dotnet add AppNLayer.BLL reference AppNLayer.Entities/AppNLayer.Entities.csproj # BLL needs Entities for mapping/internal logic
+dotnet add AppNLayer.UI.Api reference AppNLayer.BLL/AppNLayer.BLL.csproj
+dotnet add AppNLayer.UI.Api reference AppNLayer.DTO/AppNLayer.DTO.csproj # API needs DTOs for contracts
+
+# Add NuGet Packages
+# DAL Packages
+dotnet add AppNLayer.DAL package Microsoft.EntityFrameworkCore
+dotnet add AppNLayer.DAL package Microsoft.EntityFrameworkCore.SqlServer
+dotnet add AppNLayer.DAL package Microsoft.Extensions.Configuration.Abstractions
+dotnet add AppNLayer.DAL package Microsoft.Extensions.DependencyInjection.Abstractions
+
+# BLL Packages
+dotnet add AppNLayer.BLL package Riok.Mapperly # Mapperly source generator
+
+# UI.Api Packages
+dotnet add AppNLayer.UI.Api package Microsoft.EntityFrameworkCore.Design # For EF Migrations tooling
+dotnet add AppNLayer.UI.Api package Microsoft.EntityFrameworkCore.Tools # For EF Migrations tooling (optional, useful for PMC)
+dotnet add AppNLayer.UI.Api package Swashbuckle.AspNetCore # For Swagger
+
+# DTO Packages (For Validation Attributes)
+dotnet add AppNLayer.DTO package System.ComponentModel.DataAnnotations
